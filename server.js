@@ -1,10 +1,15 @@
-const express = require('express')
-const expressGraphQL = require('express-graphql')
+const { ApolloServer } = require('apollo-server')
+const { schema } = require('./schema')
+const { context } = require('./context')
 
-const app = express()
-app.listen(4876, () =>{console.log('The server is running')})
+const server = new ApolloServer({
+  schema: schema,
+  context: context,
+})
 
-app.use('/graphql', expressGraphQL({
-    schema:schema,
-    graphiql:true
-}))
+server.listen().then(async ({ url }) => {
+  console.log(`\
+🚀 Server ready at: ${url}
+⭐️ See sample queries: http://pris.ly/e/js/graphql#using-the-graphql-api
+  `)
+})
