@@ -3,54 +3,15 @@
     "seedData": [
     {
         "name": "testCategorie1",
-        "maxSize": 3,
-        "favorites": {
-            "create": [
-                {
-                    "name": "testShipItem",
-                    "shipID": 1,
-                    "manufacturer": "Test Industries",
-                    "storeImage": "no image provided",
-                    "storeURL": "test.test.com",
-                    "brochure": "test",
-                    "description": "You get the idea by now this is a test"
-                }
-            ]
-        }
+        "maxSize": 3
     },
     {
         "name": "testCategorie2",
-        "maxSize": 3,
-        "favorites": {
-            "create": [
-                {
-                    "name": "testShipItem",
-                    "shipID": 1,
-                    "manufacturer": "Test Industries",
-                    "storeImage": "no image provided",
-                    "storeURL": "test.test.com",
-                    "brochure": "test",
-                    "description": "You get the idea by now this is a test"
-                }
-            ]
-        }
+        "maxSize": 3
     },
     {
         "name": "testCategorie3",
-        "maxSize": 3,
-        "favorites": {
-            "create": [
-                {
-                    "name": "testShipItem",
-                    "shipID": 1,
-                    "manufacturer": "Test Industries",
-                    "storeImage": "no image provided",
-                    "storeURL": "test.test.com",
-                    "brochure": "test",
-                    "description": "You get the idea by now this is a test"
-                }
-            ]
-        }
+        "maxSize": 3
     }
     ]
     }

@@ -10,7 +10,6 @@ async function loadCategories(){
                 data: {
                     name: category.name,
                     maxSize: category.maxSize,
-                    favorites: category.favorites
                 }
             }
         })
