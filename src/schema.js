@@ -214,19 +214,19 @@ const Mutation = objectType({
     //   },
     // })
 
-//     t.field('deletePost', {
-//       type: 'Post',
-//       args: {
-//         id: nonNull(intArg()),
-//       },
-//       resolve: (_, args, context) => {
-//         return context.prisma.post.delete({
-//           where: { id: args.id },
-//         })
-//       },
-//     })
-//   },
-// })
+    // t.field('deletePost', {
+    //   type: 'Post',
+    //   args: {
+    //     id: nonNull(intArg()),
+    //   },
+    //   resolve: (_, args, context) => {
+    //     return context.prisma.post.delete({
+    //       where: { id: args.id },
+    //     })
+    //   },
+    // })
+  },
+})
 
 const Categories = objectType({
   name: 'Categories',

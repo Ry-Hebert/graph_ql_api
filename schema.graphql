@@ -30,6 +30,20 @@ type Favorites {
   updatedAt: DateTime!
 }
 
+input FavoritesCreateInput {
+  brochure: String!
+  description: String!
+  manufacturer: String!
+  name: String!
+  shipID: String!
+  storeImage: String!
+  storeURL: String!
+}
+
+type Mutation {
+  createFavorites(categoryID: Int!, data: FavoritesCreateInput!): Favorites
+}
+
 type Query {
   allCategories: [Categories!]!
   allFavorites: [Favorites!]!
