@@ -16,8 +16,8 @@ async function loadCategories(){
 }
 
 async function main() {
-    const categories = await loadCategories()
-    for (const category of categories){
+    const allCategories = await loadCategories()
+    for (const category of allCategories){
         try{
             await prisma.seedData.create(category)
         } catch (error) {
