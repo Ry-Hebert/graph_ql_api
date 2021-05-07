@@ -32,6 +32,7 @@ type Favorites {
 
 type Query {
   allCategories: [Categories!]!
-  allFavorites: [Categories!]!
+  allFavorites: [Favorites!]!
+  categoriesById(id: Int): Categories
   favoritesById(id: Int): Favorites
 }
