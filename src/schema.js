@@ -113,101 +113,106 @@ const Query = objectType({
   },
 })
 
-// const Mutation = objectType({
-//   name: 'Mutation',
-//   definition(t) {
-//     t.nonNull.field('signupUser', {
-//       type: 'User',
-//       args: {
-//         data: nonNull(
-//           arg({
-//             type: 'UserCreateInput',
-//           }),
-//         ),
-//       },
-//       resolve: (_, args, context) => {
-//         const postData = args.data.posts
-//           ? args.data.posts.map((post) => {
-//             return { title: post.title, content: post.content || undefined }
-//           })
-//           : []
-//         return context.prisma.user.create({
-//           data: {
-//             name: args.data.name,
-//             email: args.data.email,
-//             posts: {
-//               create: postData,
-//             },
-//           },
-//         })
-//       },
-//     })
+const Mutation = objectType({
+  name: 'Mutation',
+  definition(t) {
+    // t.nonNull.field('signupUser', {
+    //   type: 'User',
+    //   args: {
+    //     data: nonNull(
+    //       arg({
+    //         type: 'UserCreateInput',
+    //       }),
+    //     ),
+    //   },
+    //   resolve: (_, args, context) => {
+    //     const postData = args.data.posts
+    //       ? args.data.posts.map((post) => {
+    //         return { title: post.title, content: post.content || undefined }
+    //       })
+    //       : []
+    //     return context.prisma.user.create({
+    //       data: {
+    //         name: args.data.name,
+    //         email: args.data.email,
+    //         posts: {
+    //           create: postData,
+    //         },
+    //       },
+    //     })
+    //   },
+    // })
 
-//     t.field('createDraft', {
-//       type: 'Post',
-//       args: {
-//         data: nonNull(
-//           arg({
-//             type: 'PostCreateInput',
-//           }),
-//         ),
-//         authorEmail: nonNull(stringArg()),
-//       },
-//       resolve: (_, args, context) => {
-//         return context.prisma.post.create({
-//           data: {
-//             title: args.data.title,
-//             content: args.data.content,
-//             author: {
-//               connect: { email: args.authorEmail },
-//             },
-//           },
-//         })
-//       },
-//     })
+    t.field('createFavorites', {
+      type: 'Favorites',
+      args: {
+        data: nonNull(
+          arg({
+            type: 'FavoritesCreateInput',
+          }),
+        ),
+        categoryID: nonNull(intArg()),
+      },
+      resolve: (_, args, context) => {
+        return context.prisma.favorites.create({
+          data: {
+            name: args.data.name,
+            shipID: args.data.shipID,
+            manufacturer: args.data.manufacturer,
+            storeImage: args.data.storeImage,
+            storeURL: args.data.storeURL,
+            brochure: args.data.brochure,
+            description: args.data.description,
+            favorites: {
+              connect: { categoryID: args.categoryID },
+            },
+          },
+        })
+      },
+    })
 
-//     t.field('togglePublishPost', {
-//       type: 'Post',
-//       args: {
-//         id: nonNull(intArg()),
-//       },
-//       resolve: async (_, args, context) => {
-//         const post = await context.prisma.post.findUnique({
-//           where: { id: args.id || undefined },
-//           select: {
-//             published: true,
-//           },
-//         })
+    // t.field('togglePublishPost', {
+    //   type: 'Post',
+    //   args: {
+    //     id: nonNull(intArg()),
+    //   },
+    //   resolve: async (_, args, context) => {
+    //     const post = await context.prisma.post.findUnique({
+    //       where: { id: args.id || undefined },
+    //       select: {
+    //         published: true,
+    //       },
+    //     })
 
-//         if (!post) {
-//           throw new Error(
-//             `Post with ID ${args.id} does not exist in the database.`,
-//           )
-//         }
+    //     if (!post) {
+    //       throw new Error(
+    //         `Post with ID ${args.id} does not exist in the database.`,
+    //       )
+    //     }
 
-//         return context.prisma.post.update({
-//           where: { id: args.id || undefined },
-//           data: { published: !post.published },
-//         })
-//       },
-//     })
+    //     return context.prisma.post.update({
+    //       where: { id: args.id || undefined },
+    //       data: { published: !post.published },
+    //     })
+    //   },
+    // })
 
-//     t.field('incrementPostViewCount', {
-//       type: 'Post',
-//       args: {
-//         id: nonNull(intArg()),
-//       },
-//       resolve: (_, args, context) => {
-//         return context.prisma.post.update({
-//           where: { id: args.id || undefined },
-//           data: {
-//             viewCount: {
-//               increment: 1,
-//             },
-//           },
-//         })
-//       },
-//     })
+    // t.field('incrementPostViewCount', {
+    //   type: 'Post',
+    //   args: {
+    //     id: nonNull(intArg()),
+    //   },
+    //   resolve: (_, args, context) => {
+    //     return context.prisma.post.update({
+    //       where: { id: args.id || undefined },
+    //       data: {
+    //         viewCount: {
+    //           increment: 1,
+    //         },
+    //       },
+    //     })
+    //   },
+    // })
 
 //     t.field('deletePost', {
 //       type: 'Post',
@@ -290,13 +295,18 @@ const Favorites = objectType({
 //   },
 // })
 
-// const PostCreateInput = inputObjectType({
-//   name: 'PostCreateInput',
-//   definition(t) {
-//     t.nonNull.string('title')
-//     t.string('content')
-//   },
-// })
+const FavoritesCreateInput = inputObjectType({
+  name: 'FavoritesCreateInput',
+  definition(t) {
+    t.nonNull.string('name')
+    t.nonNull.string('shipID')
+    t.nonNull.string('manufacturer')
+    t.nonNull.string('storeImage')
+    t.nonNull.string('storeURL')
+    t.nonNull.string('brochure')
+    t.nonNull.string('description')
+  },
+})
 
 // const UserCreateInput = inputObjectType({
 //   name: 'UserCreateInput',
@@ -310,12 +320,12 @@ const Favorites = objectType({
 const schema = makeSchema({
   types: [
     Query,
-    // Mutation,
+    Mutation,
     Favorites,
     Categories,
     // UserUniqueInput,
     // UserCreateInput,
-    // PostCreateInput,
+    FavoritesCreateInput,
     // SortOrder,
     // PostOrderByUpdatedAtInput,
     DateTime,
